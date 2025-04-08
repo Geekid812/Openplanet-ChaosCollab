@@ -1,0 +1,22 @@
+name: Merge Pull Requests
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@6cb76d07bee4c9772c6882c06c37837bf82a04d3
+        with:
+          files: '**'
+          files_ignore: ChaosCollab.as
+      - name: Merge a PR if only approved files were changed
+        if: steps.changed-files-specific.outputs.any_changed == 'false'
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
