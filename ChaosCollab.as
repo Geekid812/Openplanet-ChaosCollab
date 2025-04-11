@@ -4,3 +4,4 @@ void Main() {
 }
 
 void DoThing1() {
+    auto app = cast<CTrackMania>(GetApp());
