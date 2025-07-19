@@ -9,3 +9,5 @@ void DoThing1() {
 }
 
 boolean VehicleIsRubberBall(CSceneVehicleVisState@ stupidState) {
+
+class boolean {
